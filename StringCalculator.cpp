@@ -33,17 +33,19 @@ std::vector<int> StringCalculator::splitNumbers(const std::string& numbers, cons
     std::string::size_type end = numbers.find_first_of(delimiter);
 
     while (end != std::string::npos) {
-        std::string temp = numbers.substr(start, end - start);
-        if (!temp.empty()) {
-            nums.push_back(std::stoi(temp));
+        try {
+            nums.push_back(std::stoi(numbers.substr(start, end - start)));
+        } catch (std::invalid_argument&) {
+            // Ignore invalid integers
         }
         start = end + 1;
         end = numbers.find_first_of(delimiter, start);
     }
 
-    std::string temp = numbers.substr(start, end);
-    if (!temp.empty()) {
-        nums.push_back(std::stoi(temp));
+    try {
+        nums.push_back(std::stoi(numbers.substr(start, end)));
+    } catch (std::invalid_argument&) {
+        // Ignore invalid integers
     }
 
     return nums;
