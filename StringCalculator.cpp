@@ -27,32 +27,22 @@ std::string StringCalculator::getDelimiterAndNumbersPart(const std::string& numb
     return numbers;
 }
 
-std::vector<int> StringCalculator::splitNumbers(const std::string& numbers, const std::string& delimiter) {
+td::vector<int> StringCalculator::splitNumbers(const std::string& numbers, const std::string& delimiter) {
     std::vector<int> nums;
     std::string::size_type start = 0;
     std::string::size_type end = numbers.find_first_of(delimiter);
 
     while (end != std::string::npos) {
-        std::string temp = numbers.substr(start, end - start);
-        if (!temp.empty() && isNumber(temp)) {
-            nums.push_back(std::stoi(temp));
-        }
+        nums.push_back(std::stoi(numbers.substr(start, end - start)));
         start = end + 1;
         end = numbers.find_first_of(delimiter, start);
     }
 
-    std::string temp = numbers.substr(start, end);
-    if (!temp.empty() && isNumber(temp)) {
-        nums.push_back(std::stoi(temp));
-    }
+    nums.push_back(std::stoi(numbers.substr(start, end)));
 
     return nums;
 }
 
-bool StringCalculator::isNumber(const std::string& str) {
-    return !str.empty() && std::find_if(str.begin(), 
-        str.end(), [](char c) { return !std::isdigit(c); }) == str.end();
-}
 
 std::vector<int> StringCalculator::findNegatives(const std::vector<int>& nums) {
     std::vector<int> negatives;
