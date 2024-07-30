@@ -4,7 +4,6 @@
 class StringCalculator {
 public:
     int Add(const std::string& numbers);
-    bool isNumber(const std::string& str); // Add this line
 private:
     std::vector<int> splitNumbers(const std::string& numbers, const std::string& delimiter);
     std::string getDelimiterAndNumbersPart(const std::string& numbers, std::string& delimiter);
