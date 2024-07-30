@@ -9,16 +9,34 @@ int StringCalculator::Add(const std::string& numbers) {
     }
 
     std::string delimiter = ",";
-    std::string numbersPart = numbers;
+    std::string numbersPart = getDelimiterAndNumbersPart(numbers, delimiter);
+    std::vector<int> nums = splitNumbers(numbersPart, delimiter);
 
+    return calculateSum(nums);
+}
+
+std::string StringCalculator::getDelimiterAndNumbersPart(const std::string& numbers, std::string& delimiter) {
     if (numbers.substr(0, 2) == "//") {
         size_t pos = numbers.find('\n');
         delimiter = numbers.substr(2, pos - 2);
-        numbersPart = numbers.substr(pos + 1);
+        return numbers.substr(pos + 1);
+    }
+    return numbers;
+}
+
+std::vector<int> StringCalculator::splitNumbers(const std::string& numbers, const std::string& delimiter) {
+    std::vector<int> nums;
+    std::stringstream ss(numbers);
+    std::string item;
+
+    while (std::getline(ss, item, ',')) {
+        nums.push_back(std::stoi(item));
     }
 
-    std::replace(numbersPart.begin(), numbersPart.end(), '\n', ',');
-    std::vector<int> nums = splitNumbers(numbersPart, delimiter);
+    return nums;
+}
+
+int StringCalculator::calculateSum(const std::vector<int>& nums) {
     std::vector<int> negatives;
     int sum = 0;
 
@@ -41,16 +59,3 @@ int StringCalculator::Add(const std::string& numbers) {
 
     return sum;
 }
-
-std::vector<int> StringCalculator::splitNumbers(const std::string& numbers, const std::string& delimiter) {
-    std::vector<int> nums;
-    std::stringstream ss(numbers);
-    std::string item;
-
-    while (std::getline(ss, item, ',')) {
-        nums.push_back(std::stoi(item));
-    }
-
-    return nums;
-}
-
