@@ -27,7 +27,7 @@ std::string StringCalculator::getDelimiterAndNumbersPart(const std::string& numb
     return numbers;
 }
 
-td::vector<int> StringCalculator::splitNumbers(const std::string& numbers, const std::string& delimiter) {
+std::vector<int> StringCalculator::splitNumbers(const std::string& numbers, const std::string& delimiter) {
     std::vector<int> nums;
     std::string::size_type start = 0;
     std::string::size_type end = numbers.find_first_of(delimiter);
