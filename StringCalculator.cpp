@@ -2,6 +2,7 @@
 #include <sstream>
 #include <algorithm>
 #include <stdexcept>
+#include <boost/algorithm/string.hpp> // Include Boost library for string split
 
 int StringCalculator::Add(const std::string& numbers) {
     if (numbers.empty()) {
@@ -28,13 +29,13 @@ std::string StringCalculator::getDelimiterAndNumbersPart(const std::string& numb
 }
 
 std::vector<int> StringCalculator::splitNumbers(const std::string& numbers, const std::string& delimiter) {
-    std::vector<int> nums;
-    std::stringstream ss(numbers);
-    std::string item;
+    std::vector<std::string> strNums;
+    boost::split(strNums, numbers, boost::is_any_of(delimiter)); // Use Boost library to split string with multiple delimiters
 
-    while (std::getline(ss, item, delimiter[0])) { // Handle multiple delimiters
-        if (!item.empty()) {
-            nums.push_back(std::stoi(item));
+    std::vector<int> nums;
+    for (const auto& strNum : strNums) {
+        if (!strNum.empty()) {
+            nums.push_back(std::stoi(strNum));
         }
     }
 
