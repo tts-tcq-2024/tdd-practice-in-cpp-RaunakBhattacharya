@@ -12,7 +12,8 @@ int StringCalculator::Add(const std::string& numbers) {
     std::string numbersPart = getDelimiterAndNumbersPart(numbers, delimiter);
     std::vector<int> nums = splitNumbers(numbersPart, delimiter);
 
-    checkForNegatives(nums);
+    std::vector<int> negatives = findNegatives(nums);
+    throwIfNegatives(negatives);
 
     return calculateSum(nums);
 }
@@ -38,7 +39,7 @@ std::vector<int> StringCalculator::splitNumbers(const std::string& numbers, cons
     return nums;
 }
 
-void StringCalculator::checkForNegatives(const std::vector<int>& nums) {
+std::vector<int> StringCalculator::findNegatives(const std::vector<int>& nums) {
     std::vector<int> negatives;
 
     for (const auto& num : nums) {
@@ -47,6 +48,10 @@ void StringCalculator::checkForNegatives(const std::vector<int>& nums) {
         }
     }
 
+    return negatives;
+}
+
+void StringCalculator::throwIfNegatives(const std::vector<int>& negatives) {
     if (!negatives.empty()) {
         std::ostringstream oss;
         oss << "negatives not allowed: ";
