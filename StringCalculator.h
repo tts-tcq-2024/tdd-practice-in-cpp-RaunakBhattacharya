@@ -8,4 +8,5 @@ private:
     std::vector<int> splitNumbers(const std::string& numbers, const std::string& delimiter);
     std::string getDelimiterAndNumbersPart(const std::string& numbers, std::string& delimiter);
     int calculateSum(const std::vector<int>& nums);
+    void checkForNegatives(const std::vector<int>& nums);
 };
