@@ -1,4 +1,4 @@
-#include "StringCalculator.hpp"
+#include "StringCalculator.h"
 #include <sstream>
 #include <algorithm>
 #include <stdexcept>
