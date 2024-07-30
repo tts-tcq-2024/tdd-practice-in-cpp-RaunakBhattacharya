@@ -8,7 +8,7 @@ int StringCalculator::Add(const std::string& numbers) {
         return 0;
     }
 
-    std::string delimiter = ",";
+    std::string delimiter = ",\n"; // Handle newline characters as delimiters
     std::string numbersPart = getDelimiterAndNumbersPart(numbers, delimiter);
     std::vector<int> nums = splitNumbers(numbersPart, delimiter);
 
@@ -32,8 +32,10 @@ std::vector<int> StringCalculator::splitNumbers(const std::string& numbers, cons
     std::stringstream ss(numbers);
     std::string item;
 
-    while (std::getline(ss, item, ',')) {
-        nums.push_back(std::stoi(item));
+    while (std::getline(ss, item, delimiter[0])) { // Handle multiple delimiters
+        if (!item.empty()) {
+            nums.push_back(std::stoi(item));
+        }
     }
 
     return nums;
